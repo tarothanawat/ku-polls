@@ -9,12 +9,16 @@ This app was created as part of the [Individual Software Process](
 https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.th).
 
 ## Installation
+1. Open your terminal and enter the following commands
+2.  git clone https://github.com/tarothanawat/ku-polls.git
+3.  python manage.py migrate
+4.  python manage.py loaddata data/polls-v1.json
 
-To be added. If the procedure is long, put it in the wiki or a separate file.
 
 ## Running the Application
 
-To be added.
+1. python manage.py runserver
+2. Open you browser and enter link http://127.0.0.1:8000/polls
 
 ## Project Documents
 
