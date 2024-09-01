@@ -30,4 +30,4 @@ All project documents are in the [Project Wiki](../../wiki/Home).
 
 # My Project
 
-![Django CI](https://github.com/<your-username>/<your-repository>/actions/workflows/python-app.yml/badge.svg)
+[![Django CI](https://github.com/tarothanawat/ku-polls/actions/workflows/django.yml/badge.svg?branch=main)](https://github.com/tarothanawat/ku-polls/actions/workflows/django.yml)
