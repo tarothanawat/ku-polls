@@ -17,8 +17,7 @@ class IndexView(generic.ListView):
         Return the last five published questions (not including those set to be
         published in the future).
         """
-        # Use the is_published method to filter questions
-        return [q for q in Question.objects.all().order_by("-pub_date") if q.is_published()][:5]
+        return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
 
 
 class DetailView(generic.DetailView):
@@ -60,15 +59,8 @@ class VoteView(View):
 
         # Use the can_vote method to check if voting is allowed
         if not question.can_vote():
-            # If voting is not allowed, show an error message on the detail page
-            return render(
-                request,
-                "polls/detail.html",
-                {
-                    "question": question,
-                    "error_message": "Voting is not allowed for this question.",
-                },
-            )
+            messages.error(request, "Voting is not allowed for this poll.")
+            return HttpResponseRedirect(reverse('polls:detail', args=(question.id,)))
 
         try:
             # Get the selected choice from the form data (POST request)

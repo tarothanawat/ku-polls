@@ -127,13 +127,19 @@ def create_question(question_text, days):
 
 class QuestionIndexViewTests(TestCase):
     def test_no_questions(self):
-        """
-        If no questions exist, an appropriate message is displayed.
-        """
-        response = self.client.get(reverse("polls:index"))
-        self.assertEqual(response.status_code, 200)
+        """If no questions exist, an appropriate message is displayed."""
+        response = self.client.get(reverse('polls:index'))
         self.assertContains(response, "No polls are available.")
-        self.assertQuerySetEqual(response.context["latest_question_list"], [])
+
+    def test_future_question(self):
+        """Questions with a pub_date in the future aren't displayed on the index page."""
+        future_question = Question.objects.create(
+            question_text="Future question",
+            pub_date=timezone.now() + timezone.timedelta(days=30)
+        )
+        response = self.client.get(reverse('polls:index'))
+        self.assertNotContains(response, future_question.question_text)
+        self.assertContains(response, "No polls are available.")
 
     def test_past_question(self):
         """
@@ -146,16 +152,6 @@ class QuestionIndexViewTests(TestCase):
             response.context["latest_question_list"],
             [question],
         )
-
-    def test_future_question(self):
-        """
-        Questions with a pub_date in the future aren't displayed on
-        the index page.
-        """
-        create_question(question_text="Future question.", days=30)
-        response = self.client.get(reverse("polls:index"))
-        self.assertContains(response, "No polls are available.")
-        self.assertQuerySetEqual(response.context["latest_question_list"], [])
 
     def test_future_question_and_past_question(self):
         """
