@@ -1,10 +1,11 @@
 from django.db.models import F
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic, View
 from django.utils import timezone
 from .models import Choice, Question
+from django.contrib import messages
 
 
 class IndexView(generic.ListView):
@@ -29,7 +30,18 @@ class DetailView(generic.DetailView):
         Excludes any questions that aren't published yet.
         """
         # Use the is_published method to filter questions
-        return [q for q in Question.objects.all() if q.is_published()]
+        return Question.objects.filter(pub_date__lte=timezone.now())
+
+    def get(self, request, *args, **kwargs):
+        """
+        Override the get method to check if voting is allowed.
+        """
+        question = self.get_object()
+        if not question.can_vote():
+            messages.error(request, "Voting is not allowed for this poll.")
+            return redirect(reverse('polls:index'))
+
+        return super().get(request, *args, **kwargs)
 
 
 class ResultsView(generic.DetailView):

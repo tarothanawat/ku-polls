@@ -76,6 +76,44 @@ class QuestionModelTests(TestCase):
         """
         self.assertTrue(self.past_question.is_published())
 
+    def test_can_vote_before_end_date(self):
+        """
+        Voting should be allowed if the current date is between pub_date and end_date.
+        """
+        # Set up a question with an end_date in the future
+        future_end_date = timezone.localtime() + datetime.timedelta(days=30)
+        question = Question.objects.create(
+            question_text="Question with future end_date",
+            pub_date=timezone.localtime() - datetime.timedelta(days=1),
+            end_date=future_end_date
+        )
+        self.assertTrue(question.can_vote())
+
+    def test_cannot_vote_after_end_date(self):
+        """
+        Voting should not be allowed if the current date is after end_date.
+        """
+        # Set up a question with an end_date in the past
+        past_end_date = timezone.localtime() - datetime.timedelta(days=1)
+        question = Question.objects.create(
+            question_text="Question with past end_date",
+            pub_date=timezone.localtime() - datetime.timedelta(days=10),
+            end_date=past_end_date
+        )
+        self.assertFalse(question.can_vote())
+
+    def test_can_vote_when_end_date_is_null(self):
+        """
+        Voting should be allowed if end_date is null and the current date is after pub_date.
+        """
+        # Set up a question with end_date as null
+        question = Question.objects.create(
+            question_text="Question with no end_date",
+            pub_date=timezone.localtime() - datetime.timedelta(days=1),
+            end_date=None
+        )
+        self.assertTrue(question.can_vote())
+
 
 def create_question(question_text, days):
     """
