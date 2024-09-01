@@ -36,6 +36,46 @@ class QuestionModelTests(TestCase):
         recent_question = Question(pub_date=time)
         self.assertIs(recent_question.was_published_recently(), True)
 
+    def setUp(self):
+        """
+        Create sample questions for testing.
+        """
+        self.now = timezone.now()
+        self.future_date = self.now + datetime.timedelta(days=30)
+        self.past_date = self.now - datetime.timedelta(days=30)
+
+        # Create questions for each test case
+        self.future_question = Question.objects.create(
+            question_text="Future question",
+            pub_date=self.future_date
+        )
+        self.default_question = Question.objects.create(
+            question_text="Default question",
+            pub_date=self.now
+        )
+        self.past_question = Question.objects.create(
+            question_text="Past question",
+            pub_date=self.past_date
+        )
+
+    def test_question_with_future_pub_date(self):
+        """
+        Question with a future publication date should not be considered published.
+        """
+        self.assertFalse(self.future_question.is_published())
+
+    def test_question_with_default_pub_date(self):
+        """
+        Question with the default publication date (now) should be considered published.
+        """
+        self.assertTrue(self.default_question.is_published())
+
+    def test_question_with_past_pub_date(self):
+        """
+        Question with a publication date in the past should be considered published.
+        """
+        self.assertTrue(self.past_question.is_published())
+
 
 def create_question(question_text, days):
     """
