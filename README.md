@@ -27,3 +27,7 @@ All project documents are in the [Project Wiki](../../wiki/Home).
 - [Vision Statement](../../wiki/Vision%20and%20Scope)
 - [Requirements](../../wiki/Requirements)
 - [Project Plan](../../wiki/Project%20Plan)
+
+# My Project
+
+[![Django CI](https://github.com/tarothanawat/ku-polls/actions/workflows/django.yml/badge.svg?branch=main)](https://github.com/tarothanawat/ku-polls/actions/workflows/django.yml)
