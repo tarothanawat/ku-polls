@@ -82,3 +82,5 @@ class VoteView(View):
 
             # Redirect to the results page after successful vote to prevent multiple submissions
             return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
+
+
