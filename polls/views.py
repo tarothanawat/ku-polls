@@ -7,7 +7,7 @@ from django.utils import timezone
 from .models import Choice, Question, Vote
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404
+
 
 
 class IndexView(generic.ListView):
@@ -47,8 +47,11 @@ class ResultsView(generic.DetailView):
 
     def get(self, request, *args, **kwargs):
         question = self.get_object()
+        # Check if the question is not published yet
         if question.pub_date > timezone.now():
+            # Redirect to the index if the question is not yet published
             return HttpResponseRedirect(reverse('polls:index'))
+        # If the question is published, proceed with the default get method
         return super().get(request, *args, **kwargs)
 
 

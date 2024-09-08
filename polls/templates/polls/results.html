@@ -1,29 +1,14 @@
+<!-- templates/polls/results.html -->
 {% extends 'base.html' %}
 
-{% block title %}
-    Poll Results
-{% endblock %}
+{% block title %}Poll Results{% endblock %}
 
 {% block content %}
     <h1>{{ question.question_text }}</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Choice</th>
-                <th>Votes</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for choice in question.choice_set.all %}
-                <tr>
-                    <td>{{ choice.choice_text }}</td>
-                    <td>{{ choice.votes }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    <a class="back-link" href="{% url 'polls:index' %}">Back to List of Polls</a>
+    <ul>
+        {% for choice in question.choice_set.all %}
+            <li>{{ choice.choice_text }}: {{ choice.votes }} votes</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'polls:index' %}" class="btn btn-primary">Back to Polls</a>
 {% endblock %}
-

@@ -1,28 +1,29 @@
+<!-- templates/polls/detail.html -->
 {% extends 'base.html' %}
 
-{% block title %}
-    Poll Details
-{% endblock %}
+{% block title %}{{ question.question_text }}{% endblock %}
 
 {% block content %}
-<form action="{% url 'polls:vote' question.id %}" method="post">
-    {% csrf_token %}
-    <fieldset>
-        <legend><h1>{{ question.question_text }}</h1></legend>
-        {% if error_message %}
-            <p><strong>{{ error_message }}</strong></p>
-        {% endif %}
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
+    <h1>{{ question.question_text }}</h1>
+
+    {% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>
+    {% endif %}
+
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+        {% csrf_token %}
         {% for choice in question.choice_set.all %}
-            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+            <div>
+                <label>
+                    <!-- Pre-select the choice if user_vote matches the choice id -->
+                    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}"
+                           {% if user_vote == choice.id %}checked{% endif %}>
+                    {{ choice.choice_text }}
+                </label>
+            </div>
         {% endfor %}
-    </fieldset>
-    <input type="submit" value="Vote">
-</form>
-<a class="back-link" href="{% url 'polls:index' %}" style="font-family: 'Arial', sans-serif;color: #007bff">Back to List of Polls</a>
+        <button type="submit">Vote</button>
+    </form>
+
+    <a href="{% url 'polls:results' question.id %}">View Results</a>
 {% endblock %}
