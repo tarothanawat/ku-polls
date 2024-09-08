@@ -4,6 +4,7 @@ This module defines the models for a simple polling application.
 import datetime
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -50,7 +51,7 @@ class Question(models.Model):
                   - Current local date-time is before the end_date, if end_date is not None.
                 :return: boolean
         """
-        now = timezone.localtime()
+        now = timezone.now()
         if self.end_date:
             return self.pub_date <= now <= self.end_date
         return now >= self.pub_date
@@ -68,10 +69,23 @@ class Choice(models.Model):
     """
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
+
+    @property
+    def votes(self):
+        """Return the number of votes for this choice."""
+        return Vote.objects.filter(choice=self).count()
 
     def __str__(self):
         return self.choice_text
+
+
+class Vote(models.Model):
+    """Record a choice for a question made by a user."""
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Vote by {self.user.username} for {self.choice.choice_text}"
 
 
 

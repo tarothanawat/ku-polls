@@ -4,11 +4,10 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic, View
 from django.utils import timezone
-from .models import Choice, Question
+from .models import Choice, Question, Vote
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import SignUpForm
-from django.contrib.auth import login
+from django.http import Http404
 
 
 class IndexView(generic.ListView):
@@ -23,7 +22,7 @@ class IndexView(generic.ListView):
         return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
 
 
-class DetailView(LoginRequiredMixin,generic.DetailView):
+class DetailView(LoginRequiredMixin, generic.DetailView):
     model = Question
     template_name = "polls/detail.html"
 
@@ -31,13 +30,9 @@ class DetailView(LoginRequiredMixin,generic.DetailView):
         """
         Excludes any questions that aren't published yet.
         """
-        # Use the is_published method to filter questions
         return Question.objects.filter(pub_date__lte=timezone.now())
 
     def get(self, request, *args, **kwargs):
-        """
-        Override the get method to check if voting is allowed.
-        """
         question = self.get_object()
         if not question.can_vote():
             messages.error(request, "Voting is not allowed for this poll.")
@@ -48,7 +43,13 @@ class DetailView(LoginRequiredMixin,generic.DetailView):
 
 class ResultsView(generic.DetailView):
     model = Question
-    template_name = "polls/results.html"
+    template_name = 'polls/results.html'
+
+    def get(self, request, *args, **kwargs):
+        question = self.get_object()
+        if question.pub_date > timezone.now():
+            return HttpResponseRedirect(reverse('polls:index'))
+        return super().get(request, *args, **kwargs)
 
 
 class VoteView(LoginRequiredMixin, View):
@@ -56,6 +57,7 @@ class VoteView(LoginRequiredMixin, View):
     Handles voting for a specific choice in a question.
     """
 
+    @staticmethod
     def post(self, request, question_id):
         # Retrieve the logged-in user
         user = request.user
@@ -83,12 +85,21 @@ class VoteView(LoginRequiredMixin, View):
                     "error_message": "You didn't select a choice.",
                 },
             )
+
+        # Check if the user has already voted for this question
+        existing_vote = Vote.objects.filter(user=user, choice__question=question).first()
+        if existing_vote:
+            # If an existing vote is found, update it
+            existing_vote.choice = selected_choice
+            existing_vote.save()
         else:
-            # Use F() expression to avoid race conditions
-            selected_choice.votes = F("votes") + 1
-            selected_choice.save()
+            # Create a new vote
+            Vote.objects.create(user=user, choice=selected_choice)
 
-            # Redirect to the results page after successful vote to prevent multiple submissions
-            return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
+        # Update the choice's vote count using F() expression
+        selected_choice.votes = F("votes") + 1
+        selected_choice.save()
 
+        # Redirect to the results page after successful vote to prevent multiple submissions
+        return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
 
