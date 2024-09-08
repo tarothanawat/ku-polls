@@ -15,9 +15,9 @@
         {% for choice in question.choice_set.all %}
             <div>
                 <label>
-                    <!-- Pre-select the choice if user_vote matches the choice id -->
-                    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}"
-                           {% if user_vote == choice.id %}checked{% endif %}>
+                    <!-- Pre-select the choice if previous_choice matches the choice id -->
+                    <input type="radio" name="choice" id="choice{{ choice.id }}" value="{{ choice.id }}"
+                           {% if previous_choice and previous_choice.id == choice.id %}checked{% endif %}>
                     {{ choice.choice_text }}
                 </label>
             </div>
