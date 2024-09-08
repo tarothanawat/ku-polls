@@ -58,15 +58,6 @@ class Question(models.Model):
 
 
 class Choice(models.Model):
-    """
-    - Choice: Represents a possible answer to a poll question, linked to a specific Question.
-        - Fields:
-            - question: ForeignKey linking to the associated Question.
-            - choice_text: Text of the choice.
-            - votes: Number of votes this choice has received (default is 0).
-        - Methods:
-            - __str__(): Returns the choice text as a string representation.
-    """
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
 
@@ -85,7 +76,5 @@ class Vote(models.Model):
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Vote by {self.user.username} for {self.choice.choice_text}"
-
-
+        return f"{self.user.username} voted for {self.choice.choice_text}"
 

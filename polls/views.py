@@ -57,12 +57,9 @@ class VoteView(LoginRequiredMixin, View):
     Handles voting for a specific choice in a question.
     """
 
-    @staticmethod
     def post(self, request, question_id):
         # Retrieve the logged-in user
         user = request.user
-        print(f"Current user is {user.id} with username '{user.username}'")
-        print(f"Real name: {user.first_name} {user.last_name}")
 
         # Retrieve the question object
         question = get_object_or_404(Question, pk=question_id)
@@ -96,10 +93,5 @@ class VoteView(LoginRequiredMixin, View):
             # Create a new vote
             Vote.objects.create(user=user, choice=selected_choice)
 
-        # Update the choice's vote count using F() expression
-        selected_choice.votes = F("votes") + 1
-        selected_choice.save()
-
         # Redirect to the results page after successful vote to prevent multiple submissions
         return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
-
