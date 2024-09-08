@@ -1,0 +1,36 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}KU Polls{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+</head>
+<body>
+    <!-- User Greeting or Login Prompt -->
+    {% if user.is_authenticated %}
+        Welcome back, {{ user.username }}!
+    {% else %}
+        Please <a href="{% url 'login' %}?next={{ request.path }}">Login</a>
+    {% endif %}
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="{% url 'polls:index' %}">Home</a>
+        <!-- Add other links here -->
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="content">
+        {% block content %}
+        <!-- Content from child templates will be inserted here -->
+        {% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>KU Polls © 2024</p>
+    </footer>
+</body>
+</html>
