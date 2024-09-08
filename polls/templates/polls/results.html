@@ -1,35 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Poll Results</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        .back-link {
-            margin-top: 20px;
-            display: inline-block;
-            text-decoration: none;
-            color: #007bff;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}
+    Poll Results
+{% endblock %}
+
+{% block content %}
     <h1>{{ question.question_text }}</h1>
 
     <table>
@@ -50,5 +25,5 @@
     </table>
 
     <a class="back-link" href="{% url 'polls:index' %}">Back to List of Polls</a>
-</body>
-</html>
+{% endblock %}
+

@@ -1,36 +1,31 @@
-<!-- templates/base.html -->
 <!DOCTYPE html>
-{% load static %}
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %}KU Polls{% endblock %}</title>
+    <title>{% block title %}Your Site Title{% endblock %}</title>
+    {% load static %}
     <link rel="stylesheet" href="{% static 'polls/style.css' %}">
 </head>
 <body>
-    <!-- User Greeting or Login Prompt -->
-    {% if user.is_authenticated %}
-        Welcome back, {{ user.username }}!
-    {% else %}
-        Please <a href="{% url 'login' %}?next={{ request.path }}">Login</a>
-    {% endif %}
+    <header>
+        {% if user.is_authenticated %}
+            <p>Welcome back, {{ user.username }}!</p>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Log Out</button>
+            </form>
+        {% else %}
+            <p>Please <a href="{% url 'login' %}?next={{ request.path }}">Login</a></p>
+        {% endif %}
+    </header>
 
-    <!-- Navigation Bar -->
-    <nav>
-        <a href="{% url 'polls:index' %}">Home</a>
-        <!-- Add other links here -->
-    </nav>
-
-    <!-- Main Content Area -->
     <div class="content">
         {% block content %}
-        <!-- Content from child templates will be inserted here -->
+        <!-- Page-specific content will go here -->
         {% endblock %}
     </div>
 
-    <!-- Footer -->
     <footer>
-        <p>KU Polls © 2024</p>
+        <!-- Footer content goes here -->
     </footer>
 </body>
 </html>

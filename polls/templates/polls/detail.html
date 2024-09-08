@@ -1,3 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Poll Details
+{% endblock %}
+
+{% block content %}
 <form action="{% url 'polls:vote' question.id %}" method="post">
 {% csrf_token %}
 <fieldset>
@@ -11,3 +18,4 @@
 <input type="submit" value="Vote">
 </form>
 <a class="back-link" href="{% url 'polls:index' %}" style="font-family: 'Arial', sans-serif;color: #007bff">Back to List of Polls</a>
+{% endblock %}

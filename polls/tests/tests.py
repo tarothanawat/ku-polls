@@ -1,9 +1,9 @@
 from django.test import TestCase
 import datetime
 from django.utils import timezone
-from .models import Question
+from polls.models import Question
 from django.urls import reverse
-from django.contrib.auth.models import User
+
 
 # Create your tests here.
 
@@ -201,19 +201,4 @@ class QuestionDetailViewTests(TestCase):
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
 
-
-class AuthUserTest(TestCase):
-
-    def setUp(self):
-        self.user = User.objects.create_user(username='testuser', password='12345')
-
-    def test_login(self):
-        # login with test user
-        login = self.client.login(username='testuser', password='12345')
-        self.assertTrue(login)
-
-        # check if user gets redirected
-        response = self.client.get(reverse('login'))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Login")
 

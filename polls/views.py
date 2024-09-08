@@ -6,6 +6,9 @@ from django.views import generic, View
 from django.utils import timezone
 from .models import Choice, Question
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import SignUpForm
+from django.contrib.auth import login
 
 
 class IndexView(generic.ListView):
@@ -20,7 +23,7 @@ class IndexView(generic.ListView):
         return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
 
 
-class DetailView(generic.DetailView):
+class DetailView(LoginRequiredMixin,generic.DetailView):
     model = Question
     template_name = "polls/detail.html"
 
@@ -48,12 +51,17 @@ class ResultsView(generic.DetailView):
     template_name = "polls/results.html"
 
 
-class VoteView(View):
+class VoteView(LoginRequiredMixin, View):
     """
     Handles voting for a specific choice in a question.
     """
 
     def post(self, request, question_id):
+        # Retrieve the logged-in user
+        user = request.user
+        print(f"Current user is {user.id} with username '{user.username}'")
+        print(f"Real name: {user.first_name} {user.last_name}")
+
         # Retrieve the question object
         question = get_object_or_404(Question, pk=question_id)
 

@@ -8,3 +8,31 @@ body {
 li a {
     color: white;
 }
+
+/* Style for tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+/* Style for back-link */
+.back-link {
+    margin-top: 20px;
+    display: inline-block;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}

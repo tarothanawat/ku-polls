@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Sign Up</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,7 +17,7 @@
             width: 300px;
             margin: auto;
         }
-        .form-container input[type="text"], .form-container input[type="password"] {
+        .form-container input[type="text"], .form-container input[type="password"], .form-container input[type="email"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
@@ -36,30 +36,14 @@
         .form-container button:hover {
             background-color: #0056b3;
         }
-        .signup-link {
-            display: block;
-            text-align: center;
-            margin-top: 10px;
-        }
-        .signup-link a {
-            text-decoration: none;
-            color: #007bff;
-        }
-        .signup-link a:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
-    <h2>Login</h2>
+    <h2>Sign Up</h2>
     <form method="POST" class="form-container">
         {% csrf_token %}
         {{ form.as_table }}
-        <button type="submit">Login</button>
-        <input type="hidden" name="next" value="{{ next }}" />
+        <button type="submit">Sign Up</button>
     </form>
-    <div class="signup-link">
-        <a href="{% url 'signup' %}">Sign Up</a>
-    </div>
 </body>
 </html>
