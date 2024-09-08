@@ -58,22 +58,16 @@ class VoteView(LoginRequiredMixin, View):
     """
 
     def post(self, request, question_id):
-        # Retrieve the logged-in user
         user = request.user
-
-        # Retrieve the question object
         question = get_object_or_404(Question, pk=question_id)
 
-        # Use the can_vote method to check if voting is allowed
         if not question.can_vote():
             messages.error(request, "Voting is not allowed for this poll.")
             return HttpResponseRedirect(reverse('polls:detail', args=(question.id,)))
 
-        try:
-            # Get the selected choice from the form data (POST request)
-            selected_choice = question.choice_set.get(pk=request.POST["choice"])
-        except (KeyError, Choice.DoesNotExist):
-            # If no choice was selected or choice does not exist, re-render the form with an error message
+        choice_id = request.POST.get("choice")
+        if not choice_id:
+            # Handle the case where no choice is selected
             return render(
                 request,
                 "polls/detail.html",
@@ -83,15 +77,24 @@ class VoteView(LoginRequiredMixin, View):
                 },
             )
 
-        # Check if the user has already voted for this question
+        try:
+            selected_choice = question.choice_set.get(pk=choice_id)
+        except Choice.DoesNotExist:
+            # Handle the case where the choice is invalid
+            return render(
+                request,
+                "polls/detail.html",
+                {
+                    "question": question,
+                    "error_message": "Invalid choice.",
+                },
+            )
+
         existing_vote = Vote.objects.filter(user=user, choice__question=question).first()
         if existing_vote:
-            # If an existing vote is found, update it
             existing_vote.choice = selected_choice
             existing_vote.save()
         else:
-            # Create a new vote
             Vote.objects.create(user=user, choice=selected_choice)
 
-        # Redirect to the results page after successful vote to prevent multiple submissions
         return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
