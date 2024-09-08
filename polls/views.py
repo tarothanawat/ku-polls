@@ -1,4 +1,4 @@
-from django.db.models import F
+import logging
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
@@ -7,6 +7,9 @@ from django.utils import timezone
 from .models import Choice, Question, Vote
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+logger = logging.getLogger('myapp')
+
 
 class IndexView(generic.ListView):
     template_name = "polls/index.html"
@@ -91,7 +94,6 @@ class ResultsView(generic.DetailView):
         return super().get(request, *args, **kwargs)
 
 
-
 class VoteView(LoginRequiredMixin, View):
     """
     Handles voting for a specific choice in a question.
@@ -122,6 +124,9 @@ class VoteView(LoginRequiredMixin, View):
             existing_vote.save()
         else:
             Vote.objects.create(user=user, choice=selected_choice)
+
+        # Log the vote
+        logger.info(f"User {user.username} voted for choice {selected_choice.choice_text} in question {question.id}")
 
         # Add a success message
         messages.success(request, f"Your vote for {selected_choice.choice_text} has been recorded.")

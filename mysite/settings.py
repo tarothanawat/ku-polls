@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from decouple import config, Csv
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'polls.middleware.FailedLoginLoggerMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -135,21 +137,32 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # LOGGING
 
+# settings.py
+
+import os
+
+# Other settings...
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
         'file': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': 'django_debug.log',
+            'filename': os.path.join(BASE_DIR, 'logs/django.log'),
         },
     },
     'loggers': {
         'django': {
             'handlers': ['file'],
-            'level': 'DEBUG',
+            'level': 'INFO',
             'propagate': True,
+        },
+        'myapp': {  # Custom logger for your app
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': False,
         },
     },
 }
