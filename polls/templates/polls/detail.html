@@ -1,13 +1,29 @@
-<form action="{% url 'polls:vote' question.id %}" method="post">
-{% csrf_token %}
-<fieldset>
-    <legend><h1>{{ question.question_text }}</h1></legend>
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-    {% for choice in question.choice_set.all %}
-        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-    {% endfor %}
-</fieldset>
-<input type="submit" value="Vote">
-</form>
-<a class="back-link" href="{% url 'polls:index' %}" style="font-family: 'Arial', sans-serif;color: #007bff">Back to List of Polls</a>
+<!-- templates/polls/detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}{{ question.question_text }}{% endblock %}
+
+{% block content %}
+    <h1>{{ question.question_text }}</h1>
+
+    {% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>
+    {% endif %}
+
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+        {% csrf_token %}
+        {% for choice in question.choice_set.all %}
+            <div>
+                <label>
+                    <!-- Pre-select the choice if previous_choice matches the choice id -->
+                    <input type="radio" name="choice" id="choice{{ choice.id }}" value="{{ choice.id }}"
+                           {% if previous_choice and previous_choice.id == choice.id %}checked{% endif %}>
+                    {{ choice.choice_text }}
+                </label>
+            </div>
+        {% endfor %}
+        <button type="submit">Vote</button>
+    </form>
+
+    <a href="{% url 'polls:results' question.id %}">View Results</a>
+{% endblock %}

@@ -1,54 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Poll Results</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        .back-link {
-            margin-top: 20px;
-            display: inline-block;
-            text-decoration: none;
-            color: #007bff;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
+<!-- templates/polls/results.html -->
+{% extends 'base.html' %}
+
+{% block title %}{{ question.question_text }}{% endblock %}
+
+{% block content %}
     <h1>{{ question.question_text }}</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Choice</th>
-                <th>Votes</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for choice in question.choice_set.all %}
-                <tr>
-                    <td>{{ choice.choice_text }}</td>
-                    <td>{{ choice.votes }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 
-    <a class="back-link" href="{% url 'polls:index' %}">Back to List of Polls</a>
-</body>
-</html>
+    <!-- Display results -->
+    <ul>
+        {% for choice in question.choice_set.all %}
+            <li>{{ choice.choice_text }}: {{ choice.vote_count }} votes</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'polls:index' %}">Back to Polls</a>
+{% endblock %}

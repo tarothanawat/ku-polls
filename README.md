@@ -1,4 +1,3 @@
-# ku-polls
 ## KU Polls: Online Survey Questions 
 
 An application to conduct online polls and surveys based
