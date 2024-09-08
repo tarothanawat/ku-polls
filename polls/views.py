@@ -91,6 +91,7 @@ class ResultsView(generic.DetailView):
         return super().get(request, *args, **kwargs)
 
 
+
 class VoteView(LoginRequiredMixin, View):
     """
     Handles voting for a specific choice in a question.
@@ -121,5 +122,8 @@ class VoteView(LoginRequiredMixin, View):
             existing_vote.save()
         else:
             Vote.objects.create(user=user, choice=selected_choice)
+
+        # Add a success message
+        messages.success(request, f"Your vote for {selected_choice.choice_text} has been recorded.")
 
         return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))

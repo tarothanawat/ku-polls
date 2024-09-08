@@ -69,6 +69,10 @@ class Choice(models.Model):
     def __str__(self):
         return self.choice_text
 
+    @property
+    def vote_count(self):
+        return self.vote_set.count()
+
 
 class Vote(models.Model):
     """Record a choice for a question made by a user."""
