@@ -31,5 +31,4 @@ All project documents are in the [Project Wiki](../../wiki/Home).
 - [Project Plan](../../wiki/Project%20Plan)
 
 # My Project
-
-[Link to my project]https://github.com/users/tarothanawat/projects/3
+https://github.com/users/tarothanawat/projects/3
