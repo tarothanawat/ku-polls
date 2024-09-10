@@ -38,7 +38,6 @@ jobs:
           # Load initial data (if applicable)
           python manage.py loaddata data/users.json
           python manage.py loaddata data/polls-v3.json
-          python manage.py migrate
           
           # (Optional) Collect static files if your project uses them
           # python manage.py collectstatic --noinput
