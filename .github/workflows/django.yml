@@ -2,31 +2,45 @@ name: Django CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "patch1" ]
   pull_request:
     branches: [ "main" ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [ 3.8, 3.9]
+        python-version: [ 3.8, 3.9 ]
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        python manage.py loaddata data/polls-v3.json
-        python manage.py migrate
-    - name: Run Tests
-      run: |
-        python manage.py test
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Prepare Django Environment
+        run: |
+          # Create logs directory if it does not exist
+          mkdir -p logs
+
+          # Run migrations
+          python manage.py migrate
+
+          # Load initial data (if applicable)
+          python manage.py loaddata data/polls-v3.json
+
+          # (Optional) Collect static files if your project uses them
+          # python manage.py collectstatic --noinput
+
+      - name: Run Tests
+        run: |
+          python manage.py test

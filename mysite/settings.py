@@ -139,30 +139,31 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # settings.py
 
-import os
-
 # Other settings...
+
+# LOGGING
+# Define the path to the logs directory
+LOG_DIR = os.path.join(BASE_DIR, 'logs')
+
+# Create the logs directory if it does not exist
+if not os.path.exists(LOG_DIR):
+    os.makedirs(LOG_DIR)
 
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
         'file': {
-            'level': 'INFO',
+            'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs/django.log'),
+            'filename': os.path.join(LOG_DIR, 'django.log'),
         },
     },
     'loggers': {
         'django': {
             'handlers': ['file'],
-            'level': 'INFO',
+            'level': 'DEBUG',
             'propagate': True,
-        },
-        'myapp': {  # Custom logger for your app
-            'handlers': ['file'],
-            'level': 'INFO',
-            'propagate': False,
         },
     },
 }
