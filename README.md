@@ -1,6 +1,6 @@
 ## KU Polls: Online Survey Questions 
 
-[![Django CI](https://github.com/tarothanawat/ku-polls/actions/workflows/django.yml/badge.svg?branch=main)](https://github.com/tarothanawat/ku-polls/actions/workflows/django.yml)
+[![Django CI](https://github.com/tarothanawat/ku-polls/actions/workflows/django.yml/badge.svg?branch=main)](https://github.com/tarothanawat/ku-polls/actions/workflows/django.yml) [![Flake8](https://github.com/tarothanawat/ku-polls/actions/workflows/flake8.yml/badge.svg)](https://github.com/tarothanawat/ku-polls/actions/workflows/flake8.yml)
 
 
 An application to conduct online polls and surveys based
