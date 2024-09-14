@@ -11,7 +11,7 @@ This app was created as part of the [Individual Software Process](
 https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.th).
 
 ## Installation
-[Link to Installation.md](./installation.md)
+For detailed installation instructions, see the [Installation Guide](./Installation.md).
 
 
 ## Running the Application
