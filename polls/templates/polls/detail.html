@@ -1,29 +1,28 @@
-<!-- templates/polls/detail.html -->
-{% extends 'base.html' %}
+{% extends 'polls/base.html' %}
 
 {% block title %}{{ question.question_text }}{% endblock %}
 
 {% block content %}
-    <h1>{{ question.question_text }}</h1>
+    <h1 class="question-title">{{ question.question_text }}</h1>
 
     {% if error_message %}
         <p><strong>{{ error_message }}</strong></p>
     {% endif %}
 
-    <form action="{% url 'polls:vote' question.id %}" method="post">
+    <form action="{% url 'polls:vote' question.id %}" method="post" class="poll-form">
         {% csrf_token %}
         {% for choice in question.choice_set.all %}
-            <div>
-                <label>
-                    <!-- Pre-select the choice if previous_choice matches the choice id -->
+            <div class="choice-item">
+                <label for="choice{{ choice.id }}" class="choice-label">
                     <input type="radio" name="choice" id="choice{{ choice.id }}" value="{{ choice.id }}"
+                           class="choice-radio"
                            {% if previous_choice and previous_choice.id == choice.id %}checked{% endif %}>
                     {{ choice.choice_text }}
                 </label>
             </div>
         {% endfor %}
-        <button type="submit">Vote</button>
+        <button type="submit" class="btn-vote">Vote</button>
     </form>
 
-    <a href="{% url 'polls:results' question.id %}">View Results</a>
+    <a href="{% url 'polls:results' question.id %}" class="btn btn-results">View Results</a>
 {% endblock %}

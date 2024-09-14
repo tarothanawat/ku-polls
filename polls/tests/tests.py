@@ -9,33 +9,6 @@ from django.urls import reverse
 
 
 class QuestionModelTests(TestCase):
-    def test_was_published_recently_with_future_question(self):
-        """
-                was_published_recently() returns False for questions whose pub_date
-                is in the future.
-        """
-
-        time = timezone.now() + datetime.timedelta(days=30)
-        future_question = Question(pub_date=time)
-        self.assertIs(future_question.was_published_recently(), False)
-
-    def test_was_published_recently_with_old_question(self):
-        """
-        was_published_recently() returns False for questions whose pub_date
-        is older than 1 day.
-        """
-        time = timezone.now() - datetime.timedelta(days=1, seconds=1)
-        old_question = Question(pub_date=time)
-        self.assertIs(old_question.was_published_recently(), False)
-
-    def test_was_published_recently_with_recent_question(self):
-        """
-        was_published_recently() returns True for questions whose pub_date
-        is within the last day.
-        """
-        time = timezone.now() - datetime.timedelta(hours=23, minutes=59, seconds=59)
-        recent_question = Question(pub_date=time)
-        self.assertIs(recent_question.was_published_recently(), True)
 
     def setUp(self):
         """
@@ -59,6 +32,36 @@ class QuestionModelTests(TestCase):
             pub_date=self.past_date
         )
 
+    def test_was_published_recently_with_future_question(self):
+        """
+        was_published_recently() returns False for questions whose pub_date
+        is in the future.
+        """
+        time = timezone.now() + datetime.timedelta(days=30)
+        future_question = Question(pub_date=time)
+        future_question.save()
+        self.assertIs(future_question.was_published_recently(), False)
+
+    def test_was_published_recently_with_old_question(self):
+        """
+        was_published_recently() returns False for questions whose pub_date
+        is older than 1 day.
+        """
+        time = timezone.now() - datetime.timedelta(days=1, seconds=1)
+        old_question = Question(pub_date=time)
+        old_question.save()
+        self.assertIs(old_question.was_published_recently(), False)
+
+    def test_was_published_recently_with_recent_question(self):
+        """
+        was_published_recently() returns True for questions whose pub_date
+        is within the last day.
+        """
+        time = timezone.now() - datetime.timedelta(hours=23, minutes=59, seconds=59)
+        recent_question = Question(pub_date=time)
+        recent_question.save()
+        self.assertIs(recent_question.was_published_recently(), True)
+
     def test_question_with_future_pub_date(self):
         """
         Question with a future publication date should not be considered published.
@@ -81,11 +84,11 @@ class QuestionModelTests(TestCase):
         """
         Voting should be allowed if the current date is between pub_date and end_date.
         """
-        # Set up a question with an end_date in the future
-        future_end_date = timezone.localtime() + datetime.timedelta(days=30)
+        now = timezone.now()
+        future_end_date = now + datetime.timedelta(days=30)
         question = Question.objects.create(
             question_text="Question with future end_date",
-            pub_date=timezone.localtime() - datetime.timedelta(days=1),
+            pub_date=now - datetime.timedelta(days=1),
             end_date=future_end_date
         )
         self.assertTrue(question.can_vote())
@@ -94,11 +97,11 @@ class QuestionModelTests(TestCase):
         """
         Voting should not be allowed if the current date is after end_date.
         """
-        # Set up a question with an end_date in the past
-        past_end_date = timezone.localtime() - datetime.timedelta(days=1)
+        now = timezone.now()
+        past_end_date = now - datetime.timedelta(days=1)
         question = Question.objects.create(
             question_text="Question with past end_date",
-            pub_date=timezone.localtime() - datetime.timedelta(days=10),
+            pub_date=now - datetime.timedelta(days=10),
             end_date=past_end_date
         )
         self.assertFalse(question.can_vote())
@@ -107,10 +110,10 @@ class QuestionModelTests(TestCase):
         """
         Voting should be allowed if end_date is null and the current date is after pub_date.
         """
-        # Set up a question with end_date as null
+        now = timezone.now()
         question = Question.objects.create(
             question_text="Question with no end_date",
-            pub_date=timezone.localtime() - datetime.timedelta(days=1),
+            pub_date=now - datetime.timedelta(days=1),
             end_date=None
         )
         self.assertTrue(question.can_vote())

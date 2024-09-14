@@ -1,0 +1,308 @@
+[
+{
+  "model": "polls.question",
+  "pk": 3,
+  "fields": {
+    "question_text": "Which of these places do you like more? (created before 1 Sep)",
+    "pub_date": "2024-08-25T13:59:26Z",
+    "end_date": "2024-09-29T17:42:51Z"
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 5,
+  "fields": {
+    "question_text": "If you could have any superpower, which one would you choose?",
+    "pub_date": "2024-09-01T17:33:59Z",
+    "end_date": null
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 6,
+  "fields": {
+    "question_text": "If you could only watch one genre of movies for the rest of you life, what would it be?",
+    "pub_date": "2024-09-01T17:39:00Z",
+    "end_date": null
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 7,
+  "fields": {
+    "question_text": "Sample published 1 Sep (Closed)",
+    "pub_date": "2024-09-01T08:43:06Z",
+    "end_date": "2024-09-14T08:43:45Z"
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 8,
+  "fields": {
+    "question_text": "What do you find most challenging about personal growth?",
+    "pub_date": "2024-09-14T08:59:42Z",
+    "end_date": null
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 4,
+  "fields": {
+    "question": 3,
+    "choice_text": "Beach",
+    "votes": 1
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 5,
+  "fields": {
+    "question": 3,
+    "choice_text": "Mountain",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 8,
+  "fields": {
+    "question": 5,
+    "choice_text": "Invisibility",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 9,
+  "fields": {
+    "question": 5,
+    "choice_text": "Invisibility",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 10,
+  "fields": {
+    "question": 5,
+    "choice_text": "Flight",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 11,
+  "fields": {
+    "question": 5,
+    "choice_text": "Luck",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 12,
+  "fields": {
+    "question": 5,
+    "choice_text": "Accelerated healing factor",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 13,
+  "fields": {
+    "question": 5,
+    "choice_text": "Omniscient (All-knowing)",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 14,
+  "fields": {
+    "question": 5,
+    "choice_text": "Time travel",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 15,
+  "fields": {
+    "question": 6,
+    "choice_text": "Action",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 16,
+  "fields": {
+    "question": 6,
+    "choice_text": "Adventure",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 17,
+  "fields": {
+    "question": 6,
+    "choice_text": "Sci-fi",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 18,
+  "fields": {
+    "question": 6,
+    "choice_text": "Mystery",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 19,
+  "fields": {
+    "question": 6,
+    "choice_text": "Comedy",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 20,
+  "fields": {
+    "question": 6,
+    "choice_text": "Romance",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 21,
+  "fields": {
+    "question": 6,
+    "choice_text": "Horror",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 22,
+  "fields": {
+    "question": 6,
+    "choice_text": "Drama",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 23,
+  "fields": {
+    "question": 8,
+    "choice_text": "Setting goals",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 24,
+  "fields": {
+    "question": 8,
+    "choice_text": "Staying motivated",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 25,
+  "fields": {
+    "question": 8,
+    "choice_text": "Overcoming setbacks",
+    "votes": 1
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 26,
+  "fields": {
+    "question": 8,
+    "choice_text": "Finding the right resources",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 27,
+  "fields": {
+    "question": 3,
+    "choice_text": "City",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 28,
+  "fields": {
+    "question": 3,
+    "choice_text": "Countryside",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 29,
+  "fields": {
+    "question": 3,
+    "choice_text": "Forest",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 30,
+  "fields": {
+    "question": 3,
+    "choice_text": "Desert",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 31,
+  "fields": {
+    "question": 3,
+    "choice_text": "Lake",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 32,
+  "fields": {
+    "question": 3,
+    "choice_text": "Island",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 33,
+  "fields": {
+    "question": 7,
+    "choice_text": "Sample choice 1",
+    "votes": 0
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 34,
+  "fields": {
+    "question": 7,
+    "choice_text": "Sample choice 2",
+    "votes": 0
+  }
+}
+]

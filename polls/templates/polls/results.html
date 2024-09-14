@@ -1,25 +1,33 @@
 <!-- templates/polls/results.html -->
-{% extends 'base.html' %}
+{% extends 'polls/base.html' %}
 
 {% block title %}{{ question.question_text }}{% endblock %}
 
 {% block content %}
-    <h1>{{ question.question_text }}</h1>
+    <div class="results-container">
+        <h1 class="question-title">{{ question.question_text }}</h1>
 
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                {{ message }}
+        {% if messages %}
+            <div class="message-container">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-    {% endif %}
+        {% endif %}
 
-    <!-- Display results -->
-    <ul>
-        {% for choice in question.choice_set.all %}
-            <li>{{ choice.choice_text }}: {{ choice.vote_count }} votes</li>
-        {% endfor %}
-    </ul>
+        <!-- Display results -->
+        <div class="results-list">
+            <ul>
+                {% for choice in question.choice_set.all %}
+                    <li class="result-item">
+                        {{ choice.choice_text }}: <strong>{{ choice.vote_count }}</strong> votes
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
 
-    <a href="{% url 'polls:index' %}">Back to Polls</a>
+        <a href="{% url 'polls:index' %}" class="btn btn-back">Back to Polls</a>
+    </div>
 {% endblock %}

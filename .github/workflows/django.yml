@@ -2,48 +2,60 @@ name: Django CI
 
 on:
   push:
-    branches: [ "main", "patch1" ]
+    branches: [ "main", "iteration4" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "iteration4" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [ 3.8, 3.9 ]
+        python-version: [ 3.11 ]
 
     steps:
-      - uses: actions/checkout@v4
+      # Step 1: Checkout the code
+      - name: Check out repository
+        uses: actions/checkout@v4
 
+      # Step 2: Set up Python environment
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install Dependencies
+      # Step 3: Install Python dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Prepare Django Environment
+      # Step 4: Prepare environment (including migrations and loading test data)
+      - name: Prepare Django environment
+        env:
+          DEBUG: 'True'
+          SECRET_KEY: 'test_secret_key_123'
+          DATABASE_URL: 'sqlite://:memory:'  # Using SQLite in-memory database for testing
         run: |
-          # Create logs directory if it does not exist
+          # Create necessary directories
           mkdir -p logs
 
-          # Run migrations
+          # Apply migrations
           python manage.py migrate
 
-          # Load initial data (if applicable)
+          # Load initial test data (optional)
           python manage.py loaddata data/users.json
           python manage.py loaddata data/polls-v3.json
+
+          # Make migrations (in case there are model changes)
           python manage.py makemigrations
           python manage.py migrate
-          
-          # (Optional) Collect static files if your project uses them
+
+          # (Optional) Collect static files
           # python manage.py collectstatic --noinput
 
+      # Step 5: Run Django unit tests
       - name: Run Tests
-        run: |
-          python manage.py test
+        run: python manage.py test
