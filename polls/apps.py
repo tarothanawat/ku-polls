@@ -1,3 +1,5 @@
+""" Used for logging. """
+
 from django.apps import AppConfig
 
 
