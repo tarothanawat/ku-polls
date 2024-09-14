@@ -38,8 +38,7 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """
-        Return the last five published questions, excluding those set to be
-        published in the future.
+        Return the last five published questions, excluding those set to be published in the future.
 
         Returns:
             QuerySet: A QuerySet of the latest questions.

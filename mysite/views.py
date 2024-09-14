@@ -1,6 +1,4 @@
-"""
-A module for handling signup request.
-"""
+"""A module for handling signup request."""
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate

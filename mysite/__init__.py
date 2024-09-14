@@ -1,1 +1,1 @@
-""" Makes this directory be counted as a module """
+"""Makes this directory be counted as a module."""

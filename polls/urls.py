@@ -1,5 +1,5 @@
 """
-polls/urls.py
+polls/urls.py.
 
 This module defines the URL patterns for the polls application.
 It maps URL paths to views for handling different poll-related requests.

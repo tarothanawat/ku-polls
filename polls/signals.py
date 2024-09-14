@@ -1,8 +1,6 @@
 # polls/signals.py
 
-"""
-This module contains signal handlers for user login and logout events.
-"""
+"""This module contains signal handlers for user login and logout events."""
 
 from django.contrib.auth.signals import user_logged_in, user_logged_out, user_login_failed
 from django.dispatch import receiver

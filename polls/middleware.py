@@ -1,4 +1,4 @@
-""" Logger for failed user login attempts. """
+"""Logger for failed user login attempts."""
 from django.utils.deprecation import MiddlewareMixin
 import logging
 
