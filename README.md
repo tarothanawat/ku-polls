@@ -10,14 +10,13 @@ additional features.
 This app was created as part of the [Individual Software Process](
 https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.th).
 
-## Installation
+## Installation and Run
+
 For detailed installation instructions, see the [Installation Guide](./Installation.md).
 
+## Demo Users
 
-## Running the Application
 
-1. python manage.py runserver
-2. Open you browser and enter link http://127.0.0.1:8000/polls
 
 ## Project Documents
 
