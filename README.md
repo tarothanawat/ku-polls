@@ -14,8 +14,17 @@ https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.
 
 For detailed installation instructions, see the [Installation Guide](./Installation.md).
 
-## Demo Users
+## Demo Superuser
+| Username | Password |
+|----------|----------|
+| superman | 1111    |
 
+## Demo User
+| Username  | Password        |
+|-----------|-----------------|
+|   Demo1   | Hackme11 |
+|   Demo2   | Hackme22 |
+|   Demo3   | Hackme33 |
 
 
 ## Project Documents
