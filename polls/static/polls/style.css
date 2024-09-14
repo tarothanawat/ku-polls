@@ -1,13 +1,19 @@
 /* polls/static/polls/style.css */
 body {
-    line-height:1.2;
-    background: url("./images/background.jpeg") no-repeat center center fixed;
+    margin-top: 60px;
+    line-height: 1.2;
+    background: url("./images/background.png") no-repeat center center fixed;
     background-size: cover;
-    color: white; /* Ensure text is readable against the background */
+    color: black; /* Ensure text is readable against the background */
+}
+
+header {
+    position: relative; /* Ensure relative positioning for header */
+    padding-top: 60px; /* Space for the sticky box */
 }
 
 li a {
-    color: white;
+    color: #007bff;
 }
 
 /* Style for tables */
@@ -38,59 +44,323 @@ th {
     text-decoration: underline;
 }
 
-/* polls/static/polls/style.css */
-/* styles.css */
+/* Buttons */
 .btn {
     display: inline-block;
     padding: 10px 20px;
     font-size: 14px;
     font-weight: bold;
-    color: #fff;
-    background-color: #007bff; /* Blue background */
+    color: black;
+    background-color: #fbca95;
     border: none;
     border-radius: 5px;
     text-align: center;
     text-decoration: none;
     transition: background-color 0.3s ease;
-    margin-right: 10px; /* Add space between buttons horizontally */
-    margin-bottom: 10px; /* Add space between buttons vertically */
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .btn:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #fbb995;
 }
-
 
 a.btn:active {
-    background-color: #003f7f; /* Even darker blue when clicked */
-    transform: scale(0.95); /* Slight shrink effect when clicked */
+    background-color: #754c2e;
+    transform: scale(0.95);
 }
 
-/* Style for the login/logout button */
-.btn-vote {
-    padding: 10px 20px;
+.btn-results {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-results:hover {
+    background-color: #0056b3;
+}
+
+.btn-back {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    text-align: center;
+    background-color: #AC444C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-back:hover {
+    background-color: #87363C;
+}
+
+/* Style for the list of polls */
+ul {
+    padding: 0;
+}
+
+ul li {
+    background-color: #611C21;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 15px;
+    font-size: 18px;
+    color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+ul li:hover {
+    background-color: #555555;
+    transform: scale(1.02);
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+ul li a.btn {
+    margin-left: 15px;
     font-size: 14px;
-    color: #fff;
-    background-color: #28a745; /* Green background */
+    padding: 8px 16px;
+}
+
+li a {
+    color: #ffffff;
+}
+
+/* Main title style */
+.poll-title {
+    font-size: 32px;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Polls container */
+.polls-container {
+    background-color: #a44040;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Poll list style */
+.poll-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.poll-item {
+    background-color: #fbca95;
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.poll-item:hover {
+    background-color: #fbb995;
+    transform: scale(1.02);
+}
+
+/* Poll link style */
+.poll-link {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+}
+
+.poll-link:hover {
+    text-decoration: underline;
+}
+
+/* Style for question title */
+.question-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #333333;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Style for poll form */
+.poll-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Choice item style */
+.choice-item {
+    margin-bottom: 15px;
+}
+
+.choice-label {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.choice-radio {
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+.btn-vote {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    text-align: center;
+    background-color: #28a745;
+    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-right: 10px; /* Add space between buttons horizontally */
-    margin-bottom: 10px; /* Add space between buttons vertically */
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
 }
 
 .btn-vote:hover {
-    background-color: #218838; /* Darker green on hover */
+    background-color: #218838;
 }
 
-.btn-vote:active {
-    background-color: #1e7e34; /* Even darker green when clicked */
-    transform: scale(0.95); /* Slight shrink effect on click */
+/* Style for results container */
+.results-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-a.btn-vote {
-    text-decoration: none;
+/* Style for results title */
+.results-title {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Style for results list */
+.results-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.results-list .result-item {
+    background-color: #fbca95;
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Emphasize the vote count */
+.result-item strong {
+    color: #007bff;
+}
+
+/* Style for notifications */
+.notification {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.notification.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.notification.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.notification.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+/* Style for the welcome box */
+.welcome-box {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: #ba5058;
     color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    max-width: 300px;
+    width: auto;
 }
 
+.welcome-box button {
+    margin-top: 10px;
+    background-color: #fff;
+    color: #ba5058;
+    border: 1px solid #ba5058;
+    cursor: pointer;
+}
+
+.welcome-box button:hover {
+    background-color: #f5f5f5;
+}
+
+/* Make sure other elements are not pushed by the fixed box */
+.content {
+    margin-top: 60px;
+}
+
+.poll-status {
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.poll-status.open {
+    color: green;
+}
+
+.poll-status.closed {
+    color: red;
+}

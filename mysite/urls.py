@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import RedirectView
 from . import views
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
@@ -26,4 +27,6 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('', RedirectView.as_view(url='/polls/', permanent=False)),  # Redirect base URL to polls index
     path('polls/', include('polls.urls')),  # Include polls app URLs
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]

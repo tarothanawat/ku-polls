@@ -40,8 +40,7 @@ class Question(models.Model):
         Returns True if the current local date-time is on or after the question's publication date.
         :return: boolean
         """
-        now = timezone.localtime()
-        return now >= self.pub_date
+        return timezone.now() >= self.pub_date
 
     def can_vote(self):
         """
@@ -62,10 +61,6 @@ class Choice(models.Model):
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
 
-    @property
-    def votes_count(self):
-        """Return the number of votes for this choice."""
-        return Vote.objects.filter(choice=self).count()
 
     def __str__(self):
         return self.choice_text
