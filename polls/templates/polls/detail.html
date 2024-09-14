@@ -1,5 +1,5 @@
 <!-- templates/polls/detail.html -->
-{% extends 'base.html' %}
+{% extends 'polls/base.html' %}
 
 {% block title %}{{ question.question_text }}{% endblock %}
 
@@ -22,8 +22,8 @@
                 </label>
             </div>
         {% endfor %}
-        <button type="submit">Vote</button>
+        <button type="submit" class="btn-vote">Vote</button>
     </form>
 
-    <a href="{% url 'polls:results' question.id %}">View Results</a>
+    <a href="{% url 'polls:results' question.id %}" class="btn">View Results</a>
 {% endblock %}

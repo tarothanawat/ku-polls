@@ -11,10 +11,10 @@
             <p>Welcome back, {{ user.username }}!</p>
             <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
-                <button type="submit">Log Out</button>
+                <button type="submit" class="btn">Log Out</button>
             </form>
         {% else %}
-            <p>Please <a href="{% url 'login' %}?next={{ request.path }}">Login</a></p>
+            <p>Please <a href="{% url 'login' %}?next={{ request.path }}" class="btn">Login</a></p>
         {% endif %}
     </header>
 
