@@ -1,5 +1,5 @@
 """
-polls/views.py
+polls/views.py.
 
 This module contains the views for the polls application. It includes views
 for listing questions, displaying details, showing results, and handling votes.

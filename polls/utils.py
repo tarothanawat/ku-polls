@@ -1,11 +1,12 @@
 """
-polls/utils.py
+polls/utils.py.
 
 This module provides utility functions for the polls application.
 
 Functions:
 - get_client_ip: Extracts the client's IP address from the request headers.
 """
+
 
 def get_client_ip(request):
     """

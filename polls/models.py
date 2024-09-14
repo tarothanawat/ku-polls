@@ -3,13 +3,10 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
 
 
 class Question(models.Model):
-    """
-    Represents a question in the poll.
-    """
+    """Represents a question in the poll."""
 
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
@@ -38,9 +35,7 @@ class Question(models.Model):
 
 
 class Choice(models.Model):
-    """
-    Represents a choice for a question in the poll.
-    """
+    """Represents a choice for a question in the poll."""
 
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
@@ -52,9 +47,7 @@ class Choice(models.Model):
 
 
 class Vote(models.Model):
-    """
-    Represents a vote cast by a user for a choice in a question.
-    """
+    """Represents a vote cast by a user for a choice in a question."""
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
@@ -62,6 +55,7 @@ class Vote(models.Model):
 
     class Meta:
         """Meta options for the Vote model."""
+
         unique_together = ('user', 'choice')
 
     def __str__(self):
