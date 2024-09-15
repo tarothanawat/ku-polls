@@ -25,7 +25,7 @@
    ```
    for Windows
    ```
-   env\Scripts\activate
+   .\venv\Scripts\activate
    ```
 6. Install the required packages.
    ```
