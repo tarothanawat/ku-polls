@@ -22,9 +22,9 @@ For detailed installation instructions, see the [Installation Guide](./Installat
 ## Demo User
 | Username  | Password        |
 |-----------|-----------------|
-|   Demo1   | Hackme11 |
-|   Demo2   | Hackme22 |
-|   Demo3   | Hackme33 |
+|   demo1   | hackme11 |
+|   demo2   | hackme22 |
+|   demo3   | hackme33 |
 
 
 ## Project Documents
