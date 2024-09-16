@@ -42,7 +42,7 @@
    copy sample.env .env
    ```
    7.1 Edit your .env SECRET_KEY by creating your own key.
-   Get your key by using Django shell.
+   Get your key by using Django shell in a new terminal.
    ```
    python manage.py shell
    ```
