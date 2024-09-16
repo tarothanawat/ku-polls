@@ -10,9 +10,27 @@ additional features.
 This app was created as part of the [Individual Software Process](
 https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.th).
 
-## Installation and Run
+## Installation
 
 For detailed installation instructions, see the [Installation Guide](./Installation.md).
+
+## Running the Application
+
+1. Activate virtual environment (If you haven't already)
+   
+   for MacOS and Linux
+   ```
+   source venv/bin/activate
+   ```
+   for Windows
+   ```
+   .\venv\Scripts\activate
+   ```
+   
+2. Run Django server
+   ```
+   python manage.py runserver
+   ```
 
 ## Demo Superuser
 | Username | Password |
