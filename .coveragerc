@@ -1,0 +1,29 @@
+[run]
+# Measure branch coverage for more detailed analysis
+branch = True
+
+# Don't measure coverage for Python standard library
+cover_pylib = False
+
+# Omit uninteresting files and directories
+omit =
+    __init__.py         # Omit all __init__.py files
+    /usr/*              # Linux location of Python libraries
+    env/*               # Virtual environment directory
+    venv/*              # Virtual environment directory
+    mysite/*            # Application configuration files (replace with your project folder name)
+    polls/migrations/*  # Omit Django migrations
+    polls/tests/*       # Omit test files from coverage
+
+
+# Include only the main app for coverage analysis
+include =
+    polls/*
+
+[report]
+# Exclude some methods we don't need to test
+exclude_lines =
+    def __str__    # Exclude __str__ methods
+    def __repr__   # Exclude __repr__ methods
+    if __name__ == .__main__.:  # Exclude lines for script entry point
+    pragma: no cover  # Exclude lines explicitly marked with this pragma
