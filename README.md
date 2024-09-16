@@ -31,6 +31,13 @@ For detailed installation instructions, see the [Installation Guide](./Installat
    ```
    python manage.py runserver
    ```
+   Press CRTL+C to quit server
+
+   If you want to exit virtual environment. (You don't have to do this.)
+   ```
+   deactivate
+   ```
+
 
 ## Demo Superuser
 | Username | Password |
