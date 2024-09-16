@@ -65,4 +65,4 @@
    ```
    python manage.py loaddata data/polls-v4.json data/users.json
    ```
-[See how to run the application](Readme.md#Running-the-Application)
+[See how to run the application](README.md#Running-the-Application)
