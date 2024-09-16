@@ -41,16 +41,28 @@
    ```
    copy sample.env .env
    ```
-8. Migrate settings and data tables.
+   7.1 Edit your .env SECRET_KEY by creating your own key.
+   Get your key by using Django shell.
+   ```
+   python manage.py shell
+   ```
+   ```
+   from django.core.management.utils import get_random_secret_key
+   ```
+   ```
+   print(get_random_secret_key())
+   ```
+   Replace SECRET_KEY with your generated key in the .env file.
+   ![image](https://github.com/user-attachments/assets/3058a042-155c-4c47-95f0-7b90b824fa55)
+
+   
+   
+9. Migrate settings and data tables.
    ```
    python manage.py migrate
    ```
-9. Load polls data.
+10. Load polls data.
    ```
    python manage.py loaddata data/polls-v4.json data/users.json
    ```
-10. Run the server.
-    ```
-    python manage.py runserver
-    ```
-
+[See how to run the application](Readme.md#Running-the-Application)
