@@ -2,7 +2,7 @@
 
 1. Open your terminal and enter the following commands.
    ```
-   https://github.com/tarothanawat/ku-polls.git
+   git clone https://github.com/tarothanawat/ku-polls.git
    ```
 2. Route to repository.
    ```
