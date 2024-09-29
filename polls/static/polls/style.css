@@ -3,5 +3,7 @@ li a {
 }
 
 body {
-    background: white url("images/background.jpeg") no-repeat;
+    background: white ;
+    background-size: cover;
 }
+
