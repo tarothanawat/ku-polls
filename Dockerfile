@@ -1,18 +1,24 @@
-# Use Python Alpine for a lightweight base image
+
 FROM python:3-alpine
 
-# Set working directory
-WORKDIR /app/polls
+# Install required system libraries for psycopg2 (PostgreSQL)
+RUN apk add --no-cache build-base postgresql-dev musl-dev
+
+# Set the working directory
+WORKDIR /app
 
 # Copy requirements and install dependencies
-COPY ./requirements.txt .
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application files
+# Copy the application code
 COPY . .
 
-# Expose the port for the application
+# Ensure the entrypoint script is executable
+RUN chmod +x /app/entrypoint.sh
+
+# Expose the port for Django
 EXPOSE 8000
 
-# Use an entrypoint script to manage database setup and start the server
-ENTRYPOINT ["sh", "/app/polls/entrypoint.sh"]
+# Run the app using the entrypoint script
+ENTRYPOINT ["sh", "/app/entrypoint.sh"]
